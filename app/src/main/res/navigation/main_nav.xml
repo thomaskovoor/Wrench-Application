@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/SPLASHFragment">
+
+    <fragment
+        android:id="@+id/URLFragment"
+        android:name="com.example.wrenchapp.ui.URLFragment"
+        android:label="fragment_u_r_l"
+        tools:layout="@layout/fragment_u_r_l" >
+        <action
+            android:id="@+id/action_URLFragment_to_LOGINFragment"
+            app:destination="@id/LOGINFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/LOGINFragment"
+        android:name="com.example.wrenchapp.ui.LOGINFragment"
+        android:label="fragment_l_o_g_i_n"
+        tools:layout="@layout/fragment_l_o_g_i_n" >
+        <action
+            android:id="@+id/action_LOGINFragment_to_URLFragment"
+            app:destination="@id/URLFragment" />
+        <action
+            android:id="@+id/action_LOGINFragment_to_HOMEFragment"
+            app:destination="@id/HOMEFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/HOMEFragment"
+        android:name="com.example.wrenchapp.ui.HOMEFragment"
+        android:label="fragment_h_o_m_e"
+        tools:layout="@layout/fragment_h_o_m_e" >
+        <action
+            android:id="@+id/action_HOMEFragment_to_LOGINFragment"
+            app:destination="@id/LOGINFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_HOMEFragment_to_DOCUMENTFragment"
+            app:destination="@id/DOCUMENTFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DOCUMENTFragment"
+        android:name="com.example.wrenchapp.ui.DOCUMENTFragment"
+        android:label="fragment_d_o_c_u_m_e_n_t"
+        tools:layout="@layout/fragment_d_o_c_u_m_e_n_t" >
+        <action
+            android:id="@+id/action_DOCUMENTFragment_to_HOMEFragment"
+            app:destination="@id/HOMEFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SPLASHFragment"
+        android:name="com.example.wrenchapp.ui.SPLASHFragment"
+        android:label="fragment_s_p_l_a_s_h"
+        tools:layout="@layout/fragment_s_p_l_a_s_h" >
+        <action
+            android:id="@+id/action_SPLASHFragment_to_URLFragment"
+            app:destination="@id/URLFragment" />
+        <action
+            android:id="@+id/action_SPLASHFragment_to_LOGINFragment"
+            app:destination="@id/LOGINFragment" />
+        <action
+            android:id="@+id/action_SPLASHFragment_to_HOMEFragment"
+            app:destination="@id/HOMEFragment" />
+    </fragment>
+</navigation>

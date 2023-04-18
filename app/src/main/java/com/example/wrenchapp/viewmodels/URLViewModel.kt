@@ -86,7 +86,7 @@ class URLViewModel : ViewModel() {
                         }
                         else{
                             _urlResponseLiveData.postValue(Resource.Failure(false, 0, testMsg3))
-                            Toast.makeText(MyApplication.appContext, "Empty Response", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(MyApplication.appContext, "Invalid URL", Toast.LENGTH_SHORT).show()
                         }
                     }
                     override fun onFailure(call: Call<String?>, t: Throwable) {

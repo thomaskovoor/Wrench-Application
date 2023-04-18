@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -23,8 +24,7 @@ import com.example.wrenchapp.viewmodels.HOMEViewModel
 
 
 class HOMEFragment : Fragment() {
- private  var thisTime:Long = 0
-    private var i : Int = 0
+
 
     private lateinit var sf : SharedPreferences
     private lateinit var editor : SharedPreferences.Editor
@@ -33,7 +33,6 @@ class HOMEFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         sf = MyApplication.appContext.getSharedPreferences("my_sf_folder", AppCompatActivity.MODE_PRIVATE)
         editor=sf.edit()
@@ -53,35 +52,27 @@ class HOMEFragment : Fragment() {
 
         logout_btn.setOnClickListener{
             myDialog.show()
-      /*      i++
-            val handler = android.os.Handler()
-
-            handler.postDelayed({
-                if(i == 1){
-                    Toast.makeText(activity,"Press again to logout",Toast.LENGTH_SHORT).show()
-                }
-                if(i == 2){
-                    viewModel.validateLogout()
-                     if(viewModel.logoutStatus){
-                         sf.edit().remove("Username").apply()
-                         sf.edit().remove("Password").apply()
-                         sf.edit().remove("isChecked").apply()
-                         Toast.makeText(activity,"Logout Successful",Toast.LENGTH_LONG).show()
-                      //   findNavController().navigate(R.id.action_HOMEFragment_to_LOGINFragment,null,
-                         //    NavOptions.Builder().setPopUpTo(findNavController().graph.getStartDestination(), true).build())
-
-                     }
-                }
-                i=0
-            },500)*/
             yes_btn.setOnClickListener {
+                viewModel.validateLogout()
+                if (viewModel.logoutStatus) {
+                    sf.edit().remove("Username").apply()
+                    sf.edit().remove("Password").apply()
+                    sf.edit().remove("isChecked").apply()
+                    Toast.makeText(activity, "Logout Successful", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_HOMEFragment_to_LOGINFragment)
+                }
                 myDialog.dismiss()
-                findNavController().navigate(R.id.action_HOMEFragment_to_LOGINFragment)
             }
             no_btn.setOnClickListener {
                 myDialog.dismiss()
             }
         }
+
+        val documentTile = view.findViewById<CardView>(R.id.documentTile)
+        documentTile.setOnClickListener {
+            findNavController().navigate(R.id.action_HOMEFragment_to_FOLDERSFragment)
+        }
+
 
         return view
     }

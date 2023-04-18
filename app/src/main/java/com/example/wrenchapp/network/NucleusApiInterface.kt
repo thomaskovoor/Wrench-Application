@@ -16,5 +16,11 @@ interface NucleusApiInterface {
     @POST("AccessControl/GetLoginPrerequisites")
     fun getLoginPrerequisites(@Body loginPrerequisites : LoginPrerequisitesRequest):Call<DataResponse>
 
+    @POST("Master/GetUserList")
+    fun getUserList(@Body userList : UserListReq):Call<DataResponse>
+
+    @POST("PersonalFolder/GetPersonalFolderStructure")
+    fun getPersonalFolderStruct(@Body personalFolderReq : PersonalFolderRequest):Call<DataResponse>
+
 }
 

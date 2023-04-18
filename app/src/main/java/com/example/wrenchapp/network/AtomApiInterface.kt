@@ -1,5 +1,6 @@
 package com.example.wrenchapp.network
 
+
 import com.example.wrenchapp.datamodel.*
 import retrofit2.Call
 import retrofit2.http.Body
@@ -20,6 +21,15 @@ interface AtomApiInterface{
 
     @POST("Access/Logout")
     fun userLogout(@Body logoutRequest : LogoutRequest):Call<LogoutResponse>
+
+    @POST("Utilities/GetCountInfoObjectTypeWise")
+    fun getCountInfo(@Body countInfoRequest : CountInfoRequest ):Call<CountInfoResponse>
+
+    @POST("Utilities/GetSmartFolderRuleCriteriaMappingValues")
+    fun getRuleCriteria(@Body ruleCriteriaRequest: RuleCriteriaRequest):Call<RuleCriteriaResponse>
+
+    @POST("SmartFolder/GetSmartFolderDocDetails")
+    fun getSmartFolderDocDetails(@Body docDetailsRequest : DocDetailsRequest):Call<DocDetailsResponse>
 
 
 

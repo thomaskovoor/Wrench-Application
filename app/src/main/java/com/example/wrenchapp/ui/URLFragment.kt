@@ -1,7 +1,10 @@
 package com.example.wrenchapp.ui
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.wrenchapp.MyApplication
@@ -35,7 +38,16 @@ class URLFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_u_r_l, container, false)
 
-       val urlButton1: Button = view.findViewById(R.id.url_btn)
+        val dialogBinding = layoutInflater.inflate(R.layout.error_dialog,null)
+        val myDialog = Dialog(requireContext())
+        myDialog.setContentView(dialogBinding)
+        myDialog.setCancelable(false)
+        myDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val okBtn = dialogBinding.findViewById<Button>(R.id.closeBtn)
+        val alertMsg = dialogBinding.findViewById<TextView>(R.id.showMsg)
+
+        val urlButton1: Button = view.findViewById(R.id.url_btn)
         val urlText1 :EditText = view.findViewById(R.id.url_iptext)
         val viewModel = ViewModelProvider(this)[URLViewModel::class.java]
         dialog = CustomProgressBar(activity)
@@ -48,11 +60,18 @@ class URLFragment : Fragment() {
             }
         }
 
+        okBtn.setOnClickListener {
+            myDialog.dismiss()
+        }
+
+
         viewModel.urlResponseLiveData.observe(viewLifecycleOwner) { result ->
             when(result){
 
                 is Resource.Failure ->{
                     dialog!!.dismissDialog()
+                    alertMsg.text = result.errorBody.toString()
+                    myDialog.show()
                 }
 
                 is Resource.Loading ->{

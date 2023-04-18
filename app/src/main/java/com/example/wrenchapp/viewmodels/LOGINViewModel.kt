@@ -4,14 +4,19 @@
     "LocalVariableName", "unused"
 )
 package com.example.wrenchapp.viewmodels
+import android.app.Dialog
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wrenchapp.MyApplication
+import com.example.wrenchapp.R
 import com.example.wrenchapp.datamodel.*
 import com.example.wrenchapp.network.AtomApiInterface
 import com.example.wrenchapp.network.NucleusApiInterface
@@ -39,8 +44,11 @@ class LOGINViewModel : ViewModel() {
     private lateinit var editor: SharedPreferences.Editor
 
 
+
+
     fun validateControlSetting()
     {
+
          sf = MyApplication.appContext.getSharedPreferences("my_sf_folder", AppCompatActivity.MODE_PRIVATE)
         val secretKey = "berDm70gXAkpa32r/g4o0raCYg4SgrCncsoEvz+fWhJd/29pSFvP4CL+yQDFDCn/"
         val controlRequest = ControlSettingRequest(sf.getString("Base_Url",null),secretKey)
@@ -82,6 +90,8 @@ class LOGINViewModel : ViewModel() {
 
     fun validateGuestLogin(userName: String)
     {
+
+
         var token:String
         val HAND_SHAKE_CODE= "VA9L9gwb1LGoX9/NlnLi3eMswgoLPv7y1NOiyaSe9DXVRgbE2hlGuJI2Mzxgu6vX/6XGs3+gZChorLFNhlNc16KFc3U4l0ePebwIO+ACuxvYQVRpQ16+Ejly+o2d2Sn2c+qyd+OlQXhtJbrzUXLsB1dP6bwWDH32jMZcSp6WuI1UU6QCei1iScKRxOCcrs0begfxhaGlFP3Y/UHk35ac99BqgvZPCTcDwwjdwSx6TSPzZtJHtNwiXJwibpCjYhMmPxL84FqvuaLKHUwTV/W/6VZUIxiwQ5O+kXvDrPRCe5lQxqki1BXnI/sQiT4I1Srk"
         val guestLoginRequest = GuestLoginRequest()

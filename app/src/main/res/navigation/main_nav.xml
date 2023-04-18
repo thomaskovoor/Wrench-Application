@@ -38,17 +38,8 @@
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_HOMEFragment_to_DOCUMENTFragment"
-            app:destination="@id/DOCUMENTFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/DOCUMENTFragment"
-        android:name="com.example.wrenchapp.ui.DOCUMENTFragment"
-        android:label="fragment_d_o_c_u_m_e_n_t"
-        tools:layout="@layout/fragment_d_o_c_u_m_e_n_t" >
-        <action
-            android:id="@+id/action_DOCUMENTFragment_to_HOMEFragment"
-            app:destination="@id/HOMEFragment" />
+            android:id="@+id/action_HOMEFragment_to_FOLDERSFragment"
+            app:destination="@id/FOLDERSFragment" />
     </fragment>
     <fragment
         android:id="@+id/SPLASHFragment"
@@ -65,4 +56,21 @@
             android:id="@+id/action_SPLASHFragment_to_HOMEFragment"
             app:destination="@id/HOMEFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/FOLDERSFragment"
+        android:name="com.example.wrenchapp.ui.FOLDERSFragment"
+        android:label="fragment_f_o_l_d_e_r_s"
+        tools:layout="@layout/fragment_f_o_l_d_e_r_s" >
+        <action
+            android:id="@+id/action_FOLDERSFragment_to_HOMEFragment"
+            app:destination="@id/HOMEFragment" />
+        <action
+            android:id="@+id/action_FOLDERSFragment_to_DOCUMENTSFragment"
+            app:destination="@id/DOCUMENTSFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DOCUMENTSFragment"
+        android:name="com.example.wrenchapp.ui.DOCUMENTSFragment"
+        android:label="fragment_d_o_c_u_m_e_n_t_s"
+        tools:layout="@layout/fragment_d_o_c_u_m_e_n_t_s" />
 </navigation>

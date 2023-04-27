@@ -4,19 +4,14 @@
     "LocalVariableName", "unused"
 )
 package com.example.wrenchapp.viewmodels
-import android.app.Dialog
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wrenchapp.MyApplication
-import com.example.wrenchapp.R
 import com.example.wrenchapp.datamodel.*
 import com.example.wrenchapp.network.AtomApiInterface
 import com.example.wrenchapp.network.NucleusApiInterface

@@ -25,5 +25,13 @@
     <string name="random_letters_here">random letters here</string>
 
     <string name="underline">I am <u>underlined</u>.</string>
-    <string name="random">random</string>
+    <string name="random">Random</string>
+    <string name="t">T</string>
+    <string name="document_number">Document Number</string>
+    <string name="document_description">Document Description</string>
+    <string name="revision_number">Revision Number</string>
+    <string name="project_id">Project ID</string>
+    <string name="status">Status</string>
+    <string name="doc_number">doc number</string>
+    <string name="created_on">Created On</string>
 </resources>

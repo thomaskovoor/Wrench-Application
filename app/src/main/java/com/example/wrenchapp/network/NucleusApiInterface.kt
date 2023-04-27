@@ -22,5 +22,8 @@ interface NucleusApiInterface {
     @POST("PersonalFolder/GetPersonalFolderStructure")
     fun getPersonalFolderStruct(@Body personalFolderReq : PersonalFolderRequest):Call<DataResponse>
 
+    @POST("PersonalFolder/GetPersonalFolderDetails")
+    fun getPersonalFolderDetails(@Body personalFolderDerailsReq : PersonalFolderDetailsRequest) : Call<DataResponse>
+
 }
 

@@ -72,5 +72,7 @@
         android:id="@+id/DOCUMENTSFragment"
         android:name="com.example.wrenchapp.ui.DOCUMENTSFragment"
         android:label="fragment_d_o_c_u_m_e_n_t_s"
-        tools:layout="@layout/fragment_d_o_c_u_m_e_n_t_s" />
+        tools:layout="@layout/fragment_d_o_c_u_m_e_n_t_s" >
+
+    </fragment>
 </navigation>

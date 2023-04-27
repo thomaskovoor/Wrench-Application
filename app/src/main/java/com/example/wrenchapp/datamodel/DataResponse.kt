@@ -29,4 +29,10 @@ class DataResponse {
     }
 
 
+    @SerializedName("Token")
+    @Expose
+    private var Token:String? = null
+    fun getToken() : String?{ return Token }
+
+
 }

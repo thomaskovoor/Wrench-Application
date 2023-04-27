@@ -7,6 +7,7 @@
 package com.example.wrenchapp.viewmodels
 
 import android.content.SharedPreferences
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -67,6 +68,7 @@ class URLViewModel : ViewModel() {
                         if (response.isSuccessful) {
                             if (response.body()!!.isNotEmpty()) {
                                 if (response.body() == "WrenchMobil") {
+                                    Log.d("testing","pass")
                                     editor.apply {
                                         putString("Atom_Base_Url", urlnew)
                                         putString("Server_Url_Input", modifiedurl)

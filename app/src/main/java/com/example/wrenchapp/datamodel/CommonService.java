@@ -9,8 +9,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CommonService {
 
@@ -91,4 +95,22 @@ public class CommonService {
         String str=gson.toJson(objectList);
         return objectList;
     }
+    public String DateParsor(String str) {
+        int i;
+        if(str.contains("-"))
+        {
+            i = str.indexOf('-');
+        }
+        else
+        {
+            i = str.indexOf('+');
+        }
+        str = str.substring(0, i);
+        long val = Long.parseLong(str.replaceAll("\\D", ""));
+        Date date = new Date(val);
+        DateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy hh:mm aaa", Locale.getDefault());
+        String dateFormatted = formatter.format(date);
+        return dateFormatted;
+    }
+
 }

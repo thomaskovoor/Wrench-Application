@@ -22,4 +22,8 @@ class CustomProgressBar(var activity: FragmentActivity?) {
         dialog!!.dismiss()
         dialog!!.setCanceledOnTouchOutside(true)
     }
+
+    fun getVisibility(): Boolean {
+        return dialog!!.isShowing
+    }
 }

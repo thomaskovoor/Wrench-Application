@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="home">#2F6CD1</color>
+    <color name="doc_progress">#0864FB</color>
+    <color name="doc_issued">#E13803</color>
+    <color name="doc_released">#06E30E</color>
+
 </resources>

@@ -82,6 +82,7 @@ class URLFragment : Fragment() {
                     dialog!!.dismissDialog()
                     findNavController().navigate(R.id.action_URLFragment_to_LOGINFragment)
                 }
+                else -> {}
             }
         }
 

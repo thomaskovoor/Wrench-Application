@@ -1,5 +1,4 @@
 package com.example.wrenchapp.ui
-
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.SharedPreferences
@@ -31,10 +30,7 @@ class URLFragment : Fragment() {
     private var dialog: CustomProgressBar? = null
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_u_r_l, container, false)
 
@@ -44,13 +40,15 @@ class URLFragment : Fragment() {
         myDialog.setCancelable(false)
         myDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+        val viewModel = ViewModelProvider(this)[URLViewModel::class.java]
+
         val okBtn = dialogBinding.findViewById<Button>(R.id.closeBtn)
         val alertMsg = dialogBinding.findViewById<TextView>(R.id.showMsg)
-
         val urlButton1: Button = view.findViewById(R.id.url_btn)
         val urlText1 :EditText = view.findViewById(R.id.url_iptext)
-        val viewModel = ViewModelProvider(this)[URLViewModel::class.java]
+
         dialog = CustomProgressBar(activity)
+
         urlButton1.setOnClickListener {
             if(urlText1.text.toString().isEmpty()){
                 Toast.makeText(activity,"Please Enter URL",Toast.LENGTH_LONG).show()
@@ -71,7 +69,8 @@ class URLFragment : Fragment() {
                 is Resource.Failure ->{
                     dialog!!.dismissDialog()
                     alertMsg.text = result.errorBody.toString()
-                    myDialog.show()
+                    Toast.makeText(MyApplication.appContext,result.errorBody.toString(),Toast.LENGTH_LONG).show()
+                  //  myDialog.show()
                 }
 
                 is Resource.Loading ->{
@@ -104,7 +103,6 @@ class URLFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         sf = MyApplication.appContext.getSharedPreferences("my_sf_folder", AppCompatActivity.MODE_PRIVATE)
         editor=sf.edit()
         val text = sf.getString("Url",null)

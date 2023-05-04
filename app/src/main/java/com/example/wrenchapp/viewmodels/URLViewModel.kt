@@ -5,7 +5,6 @@
 //removed paranthese for editor.apply
 
 package com.example.wrenchapp.viewmodels
-
 import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
@@ -19,7 +18,6 @@ import com.example.wrenchapp.datamodel.Resource
 import com.example.wrenchapp.datamodel.ServerDetailsRequest
 import com.example.wrenchapp.datamodel.ServerDetailsResponse
 import com.example.wrenchapp.network.AtomApiInterface
-
 import com.example.wrenchapp.network.RetrofitInstance.Companion.getAtomRetrofitInstance
 import kotlinx.coroutines.launch
 import retrofit2.*
@@ -34,10 +32,9 @@ class URLViewModel : ViewModel() {
     private lateinit var sf : SharedPreferences
     private lateinit var editor : SharedPreferences.Editor
 
-
     val testMsg1 = listOf("Network Error")
     val testMsg2 = listOf("Input Details Error")
-    val testMsg3 = listOf("Response Error")
+    val testMsg3 = listOf("Empty Response")
 
     fun validateUrl(urlText: String) {
 
@@ -93,7 +90,7 @@ class URLViewModel : ViewModel() {
                     }
                     override fun onFailure(call: Call<String?>, t: Throwable) {
                         _urlResponseLiveData.postValue(Resource.Failure(false,0,testMsg1))
-                        Toast.makeText(MyApplication.appContext,t.localizedMessage,Toast.LENGTH_LONG).show()
+
                     }
                 })
             }

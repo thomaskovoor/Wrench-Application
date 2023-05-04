@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wrenchapp.R
 import com.example.wrenchapp.datamodel.CommonService
 import com.example.wrenchapp.datamodel.SmartFolderDocDetail
+import com.example.wrenchapp.elements.RandomColors
 
 class DocumentsAdapter(private val context : Context) : RecyclerView.Adapter<DocumentsAdapter.ViewHolder>() {
     private var documentsList:MutableList<SmartFolderDocDetail>? = null
@@ -20,12 +22,12 @@ class DocumentsAdapter(private val context : Context) : RecyclerView.Adapter<Doc
       this.documentsList = documentsList
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentsAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.single_item_documents,parent,false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DocumentsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val document = documentsList!![position]
         holder.bind(document)
         holder.downArrowBtn.setOnClickListener {
@@ -59,9 +61,10 @@ class DocumentsAdapter(private val context : Context) : RecyclerView.Adapter<Doc
         val listRevisionNum : TextView = view.findViewById(R.id.listRevNum)
         val listProjectId : TextView = view.findViewById(R.id.listProjectId)
         val listCreatedDate : TextView = view.findViewById(R.id.listCreatedDate)
-       // val recyclerView : RecyclerView = view.findViewById(R.id.document_rec_view)
-
+        val cardView : CardView = view.findViewById(R.id.cardView)
+        private val randomColors = RandomColors()
         fun bind(data : SmartFolderDocDetail){
+            cardView.setCardBackgroundColor(randomColors.color)
               docName.text = data.DocNumber
             docIcon.text = data.DocNumber.uppercase().subSequence(0,1)
             docDesc.text = data.DocDescr
@@ -83,9 +86,6 @@ class DocumentsAdapter(private val context : Context) : RecyclerView.Adapter<Doc
             val date : String = data.CreatedOn
             val dateConversion = CommonService()
             listCreatedDate.text = dateConversion.DateParsor(date)
-
-
         }
-
     }
 }

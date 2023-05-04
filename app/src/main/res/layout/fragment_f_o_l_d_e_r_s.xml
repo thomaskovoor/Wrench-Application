@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,22 +9,29 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/folder_searchView"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="#CAEEF3"
+        android:layout_height="59dp"
+        android:layout_alignParentTop="true"
+        android:background="#EAEDCB"
         android:layoutDirection="rtl"
-        app:layout_constraintBottom_toTopOf="@+id/folder_rec_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592" />
+        app:queryHint="Search folders" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/breadcrumbs"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@id/folder_searchView"
+        android:layout_marginBottom="-59dp"
+        android:background="#C3F688"
+        android:scrollbars="horizontal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/folder_rec_view"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="556dp"
+        android:layout_below="@+id/breadcrumbs"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="-1dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

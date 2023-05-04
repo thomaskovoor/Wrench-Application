@@ -35,13 +35,12 @@ class SPLASHFragment : Fragment() {
         val urlViewModel = ViewModelProvider(this)[URLViewModel::class.java]
         val loginViewModel =  ViewModelProvider(this)[LOGINViewModel::class.java]
         dialog = CustomProgressBar(activity)
+
         val checkBoxValue = sf.getBoolean("isChecked",false)
         val url = sf.getString("Url",null)
-        Log.d("Splash","$url")
         val userName = sf.getString("Username","")
-        Log.d("Splash","$userName")
         val password = sf.getString("Password","")
-        Log.d("Splash","$password")
+
 
         if(url == null){
             findNavController().navigate(R.id.action_SPLASHFragment_to_URLFragment)

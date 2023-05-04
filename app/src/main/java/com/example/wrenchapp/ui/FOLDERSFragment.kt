@@ -11,23 +11,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wrenchapp.FolderInterface
+import com.example.wrenchapp.interfaces.FolderInterface
 import com.example.wrenchapp.MyApplication
 import com.example.wrenchapp.R
+import com.example.wrenchapp.adapters.BreadCrumbsAdapter
 import com.example.wrenchapp.adapters.FoldersAdapter
+import com.example.wrenchapp.datamodel.BreadCrumb
 import com.example.wrenchapp.datamodel.FolderStructure_LevelInfo
 import com.example.wrenchapp.datamodel.Resource
 import com.example.wrenchapp.elements.CustomProgressBar
 import com.example.wrenchapp.viewmodels.FOLDERSViewModel
 
 
-class FOLDERSFragment : Fragment(),FolderInterface{
+class FOLDERSFragment : Fragment(), FolderInterface {
 
-    private lateinit var sf : SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
     lateinit var recyclerAdapter: FoldersAdapter
+    lateinit var crumbsAdapter: BreadCrumbsAdapter
     private var dialog: CustomProgressBar? = null
-
+    private val breadCrumbData : MutableList<BreadCrumb>  = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,7 +90,15 @@ class FOLDERSFragment : Fragment(),FolderInterface{
     override fun getChildFolders(folderDetails : FolderStructure_LevelInfo,isFolder : Boolean) {
         val bundle = Bundle()
         val viewModel = ViewModelProvider(this)[FOLDERSViewModel::class.java]
-         //Toast.makeText(MyApplication.appContext,"${folderDetails.foldeR_ID}",Toast.LENGTH_SHORT).show()0
+
+        val breadCrumbs = requireView().findViewById<RecyclerView>(R.id.breadcrumbs)
+        breadCrumbs.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL, false)
+        crumbsAdapter = BreadCrumbsAdapter(MyApplication.appContext)
+        breadCrumbs.adapter = crumbsAdapter
+        breadCrumbData.add(BreadCrumb(folderDetails.foldeR_NAME,folderDetails.foldeR_ID))
+        crumbsAdapter.setPath(breadCrumbData, this)
+
+
         if(isFolder) {
             viewModel.getPersonalFolderDetails(folderDetails.foldeR_ID)
         }
@@ -100,6 +109,31 @@ class FOLDERSFragment : Fragment(),FolderInterface{
             findNavController().navigate(R.id.action_FOLDERSFragment_to_DOCUMENTSFragment,bundle)
         }
     }
+
+    override fun getChildFolderBreadCrumbs(folderList: BreadCrumb,pos : Int) {
+
+        val breadCrumbs = requireView().findViewById<RecyclerView>(R.id.breadcrumbs)
+        breadCrumbs.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL, false)
+        crumbsAdapter = BreadCrumbsAdapter(MyApplication.appContext)
+        breadCrumbs.adapter = crumbsAdapter
+
+        val viewModel = ViewModelProvider(this)[FOLDERSViewModel::class.java]
+        viewModel.getPersonalFolderDetails(folderList.folderID)
+        val newBreadCrumbData : MutableList<BreadCrumb> = ArrayList()
+
+        for(j in breadCrumbData.indices)
+        {
+            newBreadCrumbData.add(breadCrumbData[j])
+            if(j == pos)
+            {
+                break
+            }
+        }
+        crumbsAdapter.setPath(newBreadCrumbData,this)
+
+    }
+
+
 }
 
 

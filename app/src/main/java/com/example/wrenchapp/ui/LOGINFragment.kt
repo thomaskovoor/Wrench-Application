@@ -52,6 +52,7 @@ class LOGINFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this)[LOGINViewModel::class.java]
         dialog = CustomProgressBar(activity)
+        
         val loginButton1 = view.findViewById<Button>(R.id.login_btn1)
         val loginUserName = view.findViewById<EditText>(R.id.login_name)
         val loginPassword = view.findViewById<EditText>(R.id.login_pssd)
@@ -181,7 +182,8 @@ class LOGINFragment : Fragment() {
                 is Resource.Failure -> {
                     dialog!!.dismissDialog()
                     myDialog.findViewById<TextView>(R.id.showMsg).text = result.errorBody.toString()
-                    myDialog.show()
+                    Toast.makeText(MyApplication.appContext,result.errorBody.toString(),Toast.LENGTH_SHORT).show()
+                    //myDialog.show()
 
 
                 }

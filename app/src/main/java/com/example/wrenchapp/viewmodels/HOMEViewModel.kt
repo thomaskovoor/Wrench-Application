@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wrenchapp.MyApplication
-import com.example.wrenchapp.datamodel.*
+import com.example.wrenchapp.datamodel.DataResponse
+import com.example.wrenchapp.datamodel.FilterCriteria
+import com.example.wrenchapp.datamodel.LogoutRequest
+import com.example.wrenchapp.datamodel.LogoutResponse
+import com.example.wrenchapp.datamodel.ObjectPropertyX
+import com.example.wrenchapp.datamodel.UserListReq
 import com.example.wrenchapp.network.AtomApiInterface
 import com.example.wrenchapp.network.NucleusApiInterface
-import com.example.wrenchapp.network.RetrofitInstance
 import com.example.wrenchapp.network.RetrofitInstance.Companion.getAtomRetrofitInstance
 import com.example.wrenchapp.network.RetrofitInstance.Companion.getNucleusRetrofitInstance
 import kotlinx.coroutines.launch
@@ -21,7 +25,7 @@ class HOMEViewModel : ViewModel() {
 
     private lateinit var sf : SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-    var logoutStatus = false
+    var logoutStatus = true
 
 
 
@@ -31,7 +35,7 @@ class HOMEViewModel : ViewModel() {
         editor=sf.edit()
 
         val loginToken = sf.getString("Login_Token",null)
-        val request : LogoutRequest = LogoutRequest(loginToken!!)
+        val request = LogoutRequest(loginToken!!)
          viewModelScope.launch {
              val apiInterface = getAtomRetrofitInstance()?.create(AtomApiInterface::class.java)
              apiInterface?.userLogout(request)?.enqueue(
@@ -42,10 +46,11 @@ class HOMEViewModel : ViewModel() {
                      ) {
                          if (response.isSuccessful) {
                              val logoutResponse: LogoutResponse = response.body()!!
-                             if (logoutResponse.ErrorMsg == null) {
-                                 logoutStatus = true
+                             logoutStatus = if (logoutResponse.ErrorMsg == null) {
+                                 true
                              } else {
                                  Toast.makeText(MyApplication.appContext, "Empty Response", Toast.LENGTH_LONG).show()
+                                 false
                              }
                          }
                      }

@@ -1,6 +1,7 @@
 package com.example.wrenchapp.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,16 +9,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wrenchapp.FolderInterface
+import com.example.wrenchapp.MyApplication
+import com.example.wrenchapp.interfaces.FolderInterface
 import com.example.wrenchapp.R
 import com.example.wrenchapp.datamodel.FolderStructure_LevelInfo
 
 
 class FoldersAdapter(private val context : Context) : RecyclerView.Adapter<FoldersAdapter.ViewHolder>()
      {
-
     private var foldersList:MutableList<FolderStructure_LevelInfo>? = null
          private lateinit var recyclerListener : FolderInterface
+
+
 
     fun setFolders(foldersList: MutableList<FolderStructure_LevelInfo>?,recyclerListener : FolderInterface){
         this.foldersList = foldersList
@@ -35,6 +38,7 @@ class FoldersAdapter(private val context : Context) : RecyclerView.Adapter<Folde
         holder.bind(folder)
         holder.area.setOnClickListener {
             isFolder = true
+
             if(folder.chilD_EXISTS == 0 ) {
                 isFolder = false
             }
@@ -77,6 +81,5 @@ class FoldersAdapter(private val context : Context) : RecyclerView.Adapter<Folde
                 folderName.setTextColor(folderName.context.getColor(R.color.black))
             }
         }
-
     }
      }

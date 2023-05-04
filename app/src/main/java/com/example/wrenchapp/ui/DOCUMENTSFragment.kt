@@ -46,33 +46,46 @@ class DOCUMENTSFragment : Fragment() {
         var visibleItemCount: Int
         var totalItemCount : Int
         var pastVisibleItems : Int
-        var loading = true
-       /*recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        var loadMore = true
+        var i=2
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastVisiblePosition: Int = layoutManager!!.findLastCompletelyVisibleItemPosition()
+                Log.d("Recycler-PastVisibleitems", lastVisiblePosition.toString())
+                visibleItemCount = layoutManager.childCount;
+                Log.d("Recycler-Visibleitemcount", visibleItemCount.toString())
+                totalItemCount = layoutManager.itemCount;
+                pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+                Log.d("Recycler-TotalItemCount", totalItemCount.toString())
+                Log.d("Recycler-PastVisibleitems", pastVisibleItems.toString())
+                if (lastVisiblePosition == totalItemCount-1) {
+                    if (loadMore) {
+                        viewModel.getSmartFolderDocDetails(docID!!, i++)
+                        Log.d("Recycler-I", i.toString())
+                    }
+                }
+            }
+        })
+
+      /*  recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = layoutManager!!.childCount
                     totalItemCount = layoutManager.itemCount
                     pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
-                    if (loading) {
-                        if (visibleItemCount + pastVisibleItems >= totalItemCount) {
-                            loading = false
-                            if (recyclerAdapter.countOfShowing < recyclerAdapter.allChallenges.size()) {
-                                Log.e("...", "Last Item Wow !")
-                                recyclerAdapter.increaseCountOfShowing()
-                                recyclerAdapter.notifyDataSetChanged()
-                            }
-                            loading = true
-                            viewModel.getSmartFolderDocDetails(docID!!)
-
+                    if (loadMore) {
+                        loadMore = visibleItemCount + pastVisibleItems < totalItemCount
+                        viewModel.getSmartFolderDocDetails(docID!!, viewModel.i+1)
                         }
                     }
                 }
-            }
+
         })*/
 
 
-
+        val dataList : MutableList<SmartFolderDocDetail> = ArrayList()
 
         viewModel.DocDetailsResponseLiveData.observe(viewLifecycleOwner){result ->
             when(result){
@@ -85,7 +98,10 @@ class DOCUMENTSFragment : Fragment() {
                 }
                 is Resource.Success ->{
                     dialog!!.dismissDialog()
-                    recyclerAdapter.setDocuments(result.value.smartFolderDocDetails as MutableList<SmartFolderDocDetail>)
+                    if(result.value.smartFolderDocDetails.isEmpty())
+                        loadMore = false
+                    dataList.addAll(result.value.smartFolderDocDetails as MutableList<SmartFolderDocDetail>)
+                    recyclerAdapter.setDocuments(dataList)
                     recyclerAdapter.notifyDataSetChanged()
                 }
             }

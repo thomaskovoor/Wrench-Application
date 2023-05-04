@@ -30,11 +30,9 @@ class LOGINViewModel : ViewModel() {
     var emaillogin:Int = 0
     var mobilelogin:Int = 0
     var authenticationMode = 1
-
     val testMsg1 = listOf("Network Error")
     val testMsg2 = listOf("Input Details Error")
     val testMsg3 = listOf("Response Error")
-
     private lateinit var sf : SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
